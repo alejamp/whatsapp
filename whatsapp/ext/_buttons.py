@@ -80,3 +80,35 @@ def send_reply_button(
     logging.info(f"Status code: {r.status_code}")
     logging.info(f"Response: {r.json()}")
     return r.json()
+
+
+
+
+def send_cta_url(
+    self, cta_url: Dict[Any, Any], recipient_id: str
+) -> Dict[Any, Any]:
+    """
+    Sends a call to action url message to a WhatsApp user
+
+    Args:
+        cta_url[dict]: A dictionary containing the cta url data
+        recipient_id[str]: Phone number of the user with country code wihout +
+
+    check
+    
+    """
+    data = {
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": recipient_id,
+        "type": "interactive",
+        "interactive": cta_url,
+    }
+    r = requests.post(self.url, headers=self.headers, json=data)
+    if r.status_code == 200:
+        logging.info(f"CTA URL sent to {recipient_id}")
+        return r.json()
+    logging.info(f"CTA URL not sent to {recipient_id}")
+    logging.info(f"Status code: {r.status_code}")
+    logging.info(f"Response: {r.json()}")
+    return r.json()
