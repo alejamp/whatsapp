@@ -32,32 +32,32 @@ class WhatsApp(object):
         # Check if the version is up to date
         logging.getLogger(__name__).addHandler(logging.NullHandler())
 
-        self.VERSION = VERSION
-        if update_check is True:
-            latest = str(requests.get(
-                "https://pypi.org/pypi/whatsapp-python/json").json()["info"]["version"])
-            if self.VERSION != latest:
-                try:
-                    version_int = int(self.VERSION.replace(".", ""))
-                except:
-                    version_int = 0
-                latest_int = int(latest.replace(".", ""))
-                # this is to avoid the case where the version is 1.0.10 and the latest is 1.0.2 (possible if user is using the github version)
-                if version_int < latest_int:
-                    if version_int == 0:
-                        logging.critical(
-                            f"There was an error while checking for updates, please update the package manually or report the issue on GitHub.")
-                    else:
-                        logging.critical(
-                            f"Whatsapp-python is out of date. Please update to the latest version {latest}. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
-                if version_int > latest_int:
-                    latest_beta = int(str(requests.get(
-                        "https://raw.githubusercontent.com/filipporomani/whatsapp/main/.version").text).replace(".", ""))
-                    if latest_beta > version_int:
-                        logging.critical(
-                            "A new beta version is available. Please update to the latest version. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
-                    logging.critical(
-                        f"You are using a development version of whatsapp-python. Please report any issue on GitHub.")
+        # self.VERSION = VERSION
+        # if update_check is True:
+        #     latest = str(requests.get(
+        #         "https://pypi.org/pypi/whatsapp-python/json").json()["info"]["version"])
+        #     if self.VERSION != latest:
+        #         try:
+        #             version_int = int(self.VERSION.replace(".", ""))
+        #         except:
+        #             version_int = 0
+        #         latest_int = int(latest.replace(".", ""))
+        #         # this is to avoid the case where the version is 1.0.10 and the latest is 1.0.2 (possible if user is using the github version)
+        #         if version_int < latest_int:
+        #             if version_int == 0:
+        #                 logging.critical(
+        #                     f"There was an error while checking for updates, please update the package manually or report the issue on GitHub.")
+        #             else:
+        #                 logging.critical(
+        #                     f"Whatsapp-python is out of date. Please update to the latest version {latest}. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
+        #         if version_int > latest_int:
+        #             latest_beta = int(str(requests.get(
+        #                 "https://raw.githubusercontent.com/filipporomani/whatsapp/main/.version").text).replace(".", ""))
+        #             if latest_beta > version_int:
+        #                 logging.critical(
+        #                     "A new beta version is available. Please update to the latest version. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
+        #             logging.critical(
+        #                 f"You are using a development version of whatsapp-python. Please report any issue on GitHub.")
 
         
         if token == "":
